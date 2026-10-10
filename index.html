@@ -178,21 +178,22 @@ body:has(#namem.on) #amb{visibility:hidden}
 <script>
 (function(){
 var P=[
- {t:["1 SEMAINE","GYM OFFERTE"],w:12,c:"#e8141c",tx:"#fff",n:"Une semaine de gym offerte",k:"s1"},
+ {t:["1 SEMAINE","DE GYM OFFERTE"],w:12,c:"#e8141c",tx:"#fff",n:"Une semaine de gym offerte",k:"s1"},
  {t:["BOISSON","OFFERTE"],w:18,c:"#ffffff",tx:"#b00d15",n:"Une boisson offerte",k:"bo"},
- {t:["MATCH","SOIR GRATUIT"],w:7,c:"#e8141c",tx:"#fff",n:"Un match de foot gratuit le soir",k:"ms"},
- {t:["15 JOURS","GYM OFFERTS"],w:8,c:"#ffffff",tx:"#b00d15",n:"15 jours de gym offerts",k:"j15"},
- {t:["2H GAMING","GRATUIT"],w:20,c:"#e8141c",tx:"#fff",n:"2 heures de gaming gratuites",k:"ga"},
- {t:["ACADÉMIE FOOT","1 MOIS OFFERT"],w:2,c:"#ffffff",tx:"#b00d15",n:"1 mois d'Académie de foot offert",k:"ac1"},
- {t:["+1 AN GYM","OFFERT"],w:0,c:"#f5c04a",tx:"#7a0510",n:"Un an de gym offert",k:"an"},
+ {t:["MATCH","EN SOIRÉE GRATUIT"],w:7,c:"#e8141c",tx:"#fff",n:"Un match de foot gratuit en soirée",k:"ms"},
+ {t:["15 JOURS","DE GYM OFFERTS"],w:8,c:"#ffffff",tx:"#b00d15",n:"15 jours de gym offerts",k:"j15"},
+ {t:["2 H DE GAMING","GRATUITES"],w:20,c:"#e8141c",tx:"#fff",n:"2 heures de gaming gratuites",k:"ga"},
+ {t:["ACADÉMIE DE FOOT","1 MOIS OFFERT"],w:2,c:"#ffffff",tx:"#b00d15",n:"Un mois d'académie de foot offert",k:"ac1"},
+ {t:["+1 AN DE GYM","OFFERT"],w:0,c:"#f5c04a",tx:"#7a0510",n:"Un an de gym offert",k:"an"},
  {t:["RETENTE","TA CHANCE"],w:13,c:"#2a0509",tx:"#f5c04a",n:null,k:"re"},
  {t:["BON D'ACHAT","200 DH"],w:1,c:"#f5c04a",tx:"#7a0510",n:"Un bon d'achat de 200 DH",k:"bon"},
- {t:["MATCH","MATIN GRATUIT"],w:7,c:"#ffffff",tx:"#b00d15",n:"Un match de foot gratuit le matin",k:"mm"},
- {t:["1 MOIS","GYM OFFERT"],w:3,c:"#e8141c",tx:"#fff",n:"Un mois de gym offert",k:"m1"},
- {t:["3 SÉANCES","COACHING"],w:4,c:"#ffffff",tx:"#b00d15",n:"3 séances de coaching privé",k:"co"},
- {t:["REPAS RESTO","OFFERT"],w:3,c:"#e8141c",tx:"#fff",n:"Un repas offert au resto",k:"rr"},
- {t:["ACADÉMIE","-15% FOOT"],w:2,c:"#ffffff",tx:"#b00d15",n:"-15% sur l'Académie de foot",k:"ac15"}
+ {t:["MATCH","EN MATINÉE GRATUIT"],w:7,c:"#ffffff",tx:"#b00d15",n:"Un match de foot gratuit en matinée",k:"mm"},
+ {t:["1 MOIS","DE GYM OFFERT"],w:3,c:"#e8141c",tx:"#fff",n:"Un mois de gym offert",k:"m1"},
+ {t:["3 SÉANCES","DE COACHING"],w:4,c:"#ffffff",tx:"#b00d15",n:"3 séances de coaching privé",k:"co"},
+ {t:["REPAS AU RESTO","OFFERT"],w:3,c:"#e8141c",tx:"#fff",n:"Un repas offert au restaurant",k:"rr"},
+ {t:["ACADÉMIE DE FOOT","-15 %"],w:2,c:"#ffffff",tx:"#b00d15",n:"15 % de réduction sur l'académie de foot",k:"ac15"}
 ];
+
 var N=P.length,A=Math.PI*2/N,rot=0,hl=-1,ci=-1,AC=null,mute=false,busy=false,cv=document.getElementById("wheel"),g=cv.getContext("2d"),S=cv.width,R=S/2;
 var $=function(i){return document.getElementById(i)},KEY="uf11-log";
 
@@ -272,7 +273,7 @@ function end(i){
  if(an&&mgf!==2){mgf=1;return mega(function(){mgf=2;end(i);mgf=0})}
  if(win){c=code();if(!an)confetti()}save(i,c);$("mn").textContent=PN;
  var W=["Bravo !","Félicitations !","C'est pour toi !","Quelle chance !"],T=["Oh, presque !","Si près du but !"];$("mt").textContent=win?W[Math.floor(Math.random()*W.length)]:T[Math.floor(Math.random()*T.length)];$("me").textContent=win?(an?"💥":"🎉"):"🍀";if(an)$("mt").textContent="INCROYABLE !";
- $("md").textContent=win?pr.n:"La chance adore les persévérants. Retente, ça peut basculer d'un tour à l'autre !";
+ $("md").textContent=win?pr.n:"La chance sourit aux persévérants ! Réessaie, le prochain tour pourrait te réserver une surprise !";
  if(!an)fan(win);$("md").className="prize"+(win?" win":"");$("mc").hidden=!win;$("mc").textContent=c||"";$("mh").hidden=!win;$("again").hidden=win;
  document.querySelector("#modal .card").classList.toggle("mega",an);$("modal").classList.add("on");(win?$("back"):$("again")).focus();
 }
@@ -288,7 +289,7 @@ function renderLog(){var q=($("q").value||"").toLowerCase(),a=rows(),w=a.filter(
  var f=a.filter(function(o){return!q||(o.name+" "+o.prize+" "+o.code).toLowerCase().indexOf(q)>-1});
  if(!f.length){b.textContent="Aucun joueur pour le moment.";return}
  f.forEach(function(o){var d=el("div","","row"),m=el("div");m.appendChild(el("b",o.name));m.appendChild(el("br"));
-  m.appendChild(el("span",(o.won?o.prize+" · "+o.code:"Pas de cadeau, à retenter")+" · "+o.time));d.appendChild(m);
+  m.appendChild(el("span",(o.won?o.prize+" · "+o.code:"Pas de cadeau cette fois. Retente ta chance !")+" · "+o.time));d.appendChild(m);
   if(o.won){var k=el("button",o.used?"Remis ✓":"À remettre","chk"+(o.used?" on":""));k.onclick=function(){put(Object.assign({},o,{used:!o.used}));renderLog()};d.appendChild(k)}
   b.appendChild(d)})}
 $("q").oninput=renderLog;
