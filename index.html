@@ -190,7 +190,7 @@ var P=[
  {t:["MATCH","EN MATINÉE GRATUIT"],w:11,c:"#ffffff",tx:"#b00d15",n:"Un match de foot gratuit en matinée",k:"mm"},
  {t:["1 MOIS","DE GYM OFFERT"],w:3,c:"#e8141c",tx:"#fff",n:"Un mois de gym offert",k:"m1"},
  {t:["3 SÉANCES","DE COACHING"],w:4,c:"#ffffff",tx:"#b00d15",n:"3 séances de coaching privé",k:"co"},
- {t:["REPAS AU RESTO","OFFERT"],w:0.5,c:"#e8141c",tx:"#fff",n:"Un repas offert au restaurant",k:"rr"},
+ {t:["REPAS AU RESTO","OFFERT"],w:0,c:"#e8141c",tx:"#fff",n:"Un repas offert au restaurant",k:"rr"},
  {t:["ACADÉMIE DE FOOT","-15 %"],w:2.1,c:"#ffffff",tx:"#b00d15",n:"15 % de réduction sur l'académie de foot",k:"ac15"}
 ];
 
@@ -234,9 +234,9 @@ function ambient(){var W=am.width=innerWidth,H=am.height=innerHeight;ax.clearRec
   ax.fillStyle=b.c;ax.beginPath();ax.ellipse(x,b.y,b.r*.82,b.r,0,0,7);ax.fill();
   ax.fillStyle="rgba(255,255,255,.4)";ax.beginPath();ax.ellipse(x-b.r*.3,b.y-b.r*.35,b.r*.16,b.r*.3,.5,0,7);ax.fill()});
  ax.globalAlpha=1}
-var EVERY=100;/* +1 AN GYM : 2 gagnants par tranche de EVERY clients, a des positions au hasard */
+var EVERY=100;/* +1 AN GYM : 1 gagnant par tranche de EVERY clients, a des positions au hasard */
 function capped(){var b=Math.floor((cur?cur.i:nC())/EVERY);return rows().filter(function(o){return o.key==="an"&&Math.floor(o.i/EVERY)===b}).length}
-function pick(){var ix=cur?cur.i:nC();var rest=2-capped();if(!cur&&rest>0&&Math.random()<rest/(EVERY-ix%EVERY))return P.map(function(p){return p.k}).indexOf("an");var w=P.map(function(p){return p.k==="an"?0:p.w}),s=0,i;w.forEach(function(v){s+=v});var x=Math.random()*s;for(i=0;i<N;i++){x-=w[i];if(x<0)return i}return N-1}
+function pick(){var ix=cur?cur.i:nC();var rest=1-capped();if(!cur&&rest>0&&Math.random()<rest/(EVERY-ix%EVERY))return P.map(function(p){return p.k}).indexOf("an");var w=P.map(function(p){return p.k==="an"?0:p.w}),s=0,i;w.forEach(function(v){s+=v});var x=Math.random()*s;for(i=0;i<N;i++){x-=w[i];if(x<0)return i}return N-1}
 function code(){var c="ABCDEFGHJKLMNPQRSTUVWXYZ23456789",o="UF11-";for(var i=0;i<4;i++)o+=c[Math.floor(Math.random()*c.length)];return o}
 var LOG={},DB=null,PN="",cur=null,pend=[];
 function nC(){return Object.keys(LOG).length}
